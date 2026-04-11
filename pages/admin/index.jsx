@@ -29,10 +29,10 @@ export default function AdminDashboard() {
     fetchCounts();
   }, []);
 
-  const AnimatedCount = ({ value }) => {
+  const AnimatedCount = ({ value, isLoading }) => {
     const [display, setDisplay] = useState(0);
     useEffect(() => {
-      if (loading) return;
+      if (isLoading) return;
       let start = 0;
       const duration = 1000;
       const step = Math.max(1, Math.floor(value / (duration / 16)));
@@ -46,7 +46,7 @@ export default function AdminDashboard() {
         }
       }, 16);
       return () => clearInterval(timer);
-    }, [value, loading]);
+    }, [value, isLoading]);
     return <span>{display}</span>;
   };
 
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
                     {loading ? (
                       <span className="inline-block w-12 h-10 bg-gray-200 rounded animate-pulse" />
                     ) : (
-                      <AnimatedCount value={liveCount} />
+                      <AnimatedCount value={liveCount} isLoading={loading} />
                     )}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
                     {loading ? (
                       <span className="inline-block w-12 h-10 bg-gray-200 rounded animate-pulse" />
                     ) : (
-                      <AnimatedCount value={cookedCount} />
+                      <AnimatedCount value={cookedCount} isLoading={loading} />
                     )}
                   </p>
                 </div>

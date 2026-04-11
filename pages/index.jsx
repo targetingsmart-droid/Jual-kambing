@@ -11,9 +11,9 @@ import { Beef, ChefHat, ArrowDown, ShoppingBag } from "lucide-react";
 const TYPES = ["Semua", "A", "B", "C"];
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1533318087102-b3ad366ed041?w=1200&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?w=1200&h=500&fit=crop",
-  "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=1200&h=500&fit=crop",
+  "https://images.unsplash.com/photo-1524024973431-2ad916746264?w=1200&h=500&fit=crop",
+  "https://images.unsplash.com/photo-1580365666578-17c19d471e18?w=1200&h=500&fit=crop",
+  "https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?w=1200&h=500&fit=crop",
 ];
 
 const staggerContainer = {

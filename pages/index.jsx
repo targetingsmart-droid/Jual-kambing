@@ -7,7 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import GoatCard from "@/components/ui/GoatCard";
 import CookedCard from "@/components/ui/CookedCard";
 import FeaturesSection from "@/components/ui/FeaturesSection";
-import { Beef, ChefHat, ArrowDown, RefreshCw, ShoppingBag } from "lucide-react";
+import { Beef, ChefHat, ArrowDown, ShoppingBag, Filter } from "lucide-react";
+
+const TYPES = ["Semua", "A", "B", "C", "D", "E"];
 
 const staggerContainer = {
   animate: { transition: { staggerChildren: 0.1 } },
@@ -18,6 +20,8 @@ export default function Home() {
   const [cookedPackages, setCookedPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [liveFilter, setLiveFilter] = useState("Semua");
+  const [cookedFilter, setCookedFilter] = useState("Semua");
 
   const fetchAll = async () => {
     setLoading(true);
@@ -47,10 +51,18 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const controller = new AbortController();
     fetchAll();
-    return () => controller.abort();
   }, []);
+
+  const filteredLiveGoats =
+    liveFilter === "Semua"
+      ? liveGoats
+      : liveGoats.filter((g) => g.type === liveFilter);
+
+  const filteredCookedPackages =
+    cookedFilter === "Semua"
+      ? cookedPackages
+      : cookedPackages.filter((p) => p.type === cookedFilter);
 
   const SkeletonCard = () => (
     <div className="rounded-xl border border-primary-100/50 overflow-hidden">
@@ -64,11 +76,29 @@ export default function Home() {
     </div>
   );
 
+  const TypeFilter = ({ value, onChange }) => (
+    <div className="flex flex-wrap items-center gap-2 mb-6">
+      <Filter size={16} className="text-gray-500" />
+      {TYPES.map((type) => (
+        <button
+          key={type}
+          onClick={() => onChange(type)}
+          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+            value === type
+              ? "bg-primary text-white shadow-md"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          {type === "Semua" ? "Semua" : `Tipe ${type}`}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-700 to-primary-500">
-        {/* Decorative elements */}
         <div className="absolute top-20 right-20 w-72 h-72 bg-secondary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-20 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 opacity-5">
@@ -156,7 +186,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Wave divider hero -> catalog */}
+      {/* Wave divider */}
       <svg
         className="w-full -mt-1 text-background"
         viewBox="0 0 1440 60"
@@ -203,23 +233,9 @@ export default function Home() {
               </TabsTrigger>
             </TabsList>
 
-            <div className="flex justify-center mb-6">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={fetchAll}
-                disabled={loading}
-                className="text-text-secondary"
-              >
-                <RefreshCw
-                  size={14}
-                  className={`mr-1.5 ${loading ? "animate-spin" : ""}`}
-                />
-                Muat Ulang
-              </Button>
-            </div>
-
             <TabsContent value="live">
+              <TypeFilter value={liveFilter} onChange={setLiveFilter} />
+
               {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                   {[1, 2, 3].map((i) => (
@@ -233,12 +249,22 @@ export default function Home() {
                     Coba Lagi
                   </Button>
                 </div>
-              ) : liveGoats.length === 0 ? (
+              ) : filteredLiveGoats.length === 0 ? (
                 <div className="text-center py-16">
                   <Beef size={48} className="mx-auto text-primary-200 mb-4" />
                   <p className="text-text-secondary text-lg">
-                    Belum ada kambing tersedia saat ini
+                    {liveFilter !== "Semua"
+                      ? `Tidak ada kambing Tipe ${liveFilter}`
+                      : "Belum ada kambing tersedia saat ini"}
                   </p>
+                  {liveFilter !== "Semua" && (
+                    <button
+                      onClick={() => setLiveFilter("Semua")}
+                      className="mt-3 text-primary hover:underline text-sm"
+                    >
+                      Tampilkan semua
+                    </button>
+                  )}
                 </div>
               ) : (
                 <motion.div
@@ -247,7 +273,7 @@ export default function Home() {
                   animate="animate"
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
                 >
-                  {liveGoats.map((goat) => (
+                  {filteredLiveGoats.map((goat) => (
                     <GoatCard key={goat.id} goat={goat} />
                   ))}
                 </motion.div>
@@ -255,6 +281,8 @@ export default function Home() {
             </TabsContent>
 
             <TabsContent value="cooked">
+              <TypeFilter value={cookedFilter} onChange={setCookedFilter} />
+
               {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                   {[1, 2, 3].map((i) => (
@@ -268,15 +296,25 @@ export default function Home() {
                     Coba Lagi
                   </Button>
                 </div>
-              ) : cookedPackages.length === 0 ? (
+              ) : filteredCookedPackages.length === 0 ? (
                 <div className="text-center py-16">
                   <ChefHat
                     size={48}
                     className="mx-auto text-secondary-200 mb-4"
                   />
                   <p className="text-text-secondary text-lg">
-                    Belum ada paket masak tersedia saat ini
+                    {cookedFilter !== "Semua"
+                      ? `Tidak ada paket masak Tipe ${cookedFilter}`
+                      : "Belum ada paket masak tersedia saat ini"}
                   </p>
+                  {cookedFilter !== "Semua" && (
+                    <button
+                      onClick={() => setCookedFilter("Semua")}
+                      className="mt-3 text-primary hover:underline text-sm"
+                    >
+                      Tampilkan semua
+                    </button>
+                  )}
                 </div>
               ) : (
                 <motion.div
@@ -285,7 +323,7 @@ export default function Home() {
                   animate="animate"
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
                 >
-                  {cookedPackages.map((pkg) => (
+                  {filteredCookedPackages.map((pkg) => (
                     <CookedCard key={pkg.id} pkg={pkg} />
                   ))}
                 </motion.div>
@@ -295,7 +333,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Wave divider catalog -> features */}
+      {/* Wave divider */}
       <svg
         className="w-full -mb-1 text-surface"
         viewBox="0 0 1440 60"

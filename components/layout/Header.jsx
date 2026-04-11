@@ -85,7 +85,7 @@ export default function Header() {
           />
 
           {/* Side panel */}
-          <div className="absolute top-0 right-0 h-full w-72 bg-white shadow-2xl flex flex-col">
+          <div className="absolute top-0 right-0 h-full w-56 bg-white shadow-2xl flex flex-col">
             {/* Close button */}
             <div className="flex items-center justify-between p-4 border-b">
               <span className="font-serif text-lg font-bold text-primary">

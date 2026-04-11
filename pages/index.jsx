@@ -73,12 +73,12 @@ export default function Home() {
   );
 
   const TypeFilter = ({ value, onChange }) => (
-    <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-1">
+    <div className="flex flex-wrap items-center gap-2 mb-6">
       {TYPES.map((type) => (
         <button
           key={type}
           onClick={() => onChange(type)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${
             value === type
               ? "bg-primary text-white shadow-md"
               : "bg-white text-gray-600 border border-gray-200 hover:border-primary hover:text-primary"

@@ -98,7 +98,7 @@ export default function Home() {
           <motion.img
             key={currentSlide}
             src={heroImages[currentSlide]}
-            alt="GoatShop"
+            alt="ABADI FARM"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

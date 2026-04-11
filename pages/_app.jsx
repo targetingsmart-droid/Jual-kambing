@@ -71,6 +71,16 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  // Admin routes don't use the public Layout (Header/Footer)
+  if (isAdminRoute) {
+    return (
+      <div className={`${playfair.variable} ${inter.variable} font-sans min-h-screen bg-background`}>
+        <Component {...pageProps} />
+        <Toaster />
+      </div>
+    );
+  }
+
   return (
     <div className={`${playfair.variable} ${inter.variable} font-sans`}>
       <Layout>

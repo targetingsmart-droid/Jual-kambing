@@ -2,7 +2,7 @@ import { Phone, Clock, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="relative">
+    <footer id="kontak" className="relative">
       <div className="h-1 bg-gradient-to-r from-secondary via-primary to-secondary" />
 
       <svg

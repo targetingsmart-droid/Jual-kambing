@@ -37,7 +37,7 @@ const item = {
 
 export default function FeaturesSection() {
   return (
-    <section className="py-20 lg:py-28 bg-surface">
+    <section id="fasilitas" className="py-20 lg:py-28 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4 mb-12">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent to-primary-200" />

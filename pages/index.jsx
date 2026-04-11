@@ -1,15 +1,32 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabaseClient";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import GoatCard from "@/components/ui/GoatCard";
 import CookedCard from "@/components/ui/CookedCard";
 import FeaturesSection from "@/components/ui/FeaturesSection";
-import { Beef, ChefHat, ArrowDown, ShoppingBag, Filter } from "lucide-react";
+import { Beef, ChefHat, ArrowDown, ShoppingBag } from "lucide-react";
 
-const TYPES = ["Semua", "A", "B", "C", "D", "E"];
+const TYPES = ["Semua", "A", "B", "C"];
+
+const heroSlides = [
+  {
+    image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=1200&h=800&fit=crop",
+    title: "Kambing Kurban Premium",
+    subtitle: "Pilihan terbaik untuk ibadah kurban Anda",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1524024973431-2ad916746264?w=1200&h=800&fit=crop",
+    title: "Kualitas Terjamin",
+    subtitle: "Kambing sehat, gemuk, dan terawat dengan baik",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?w=1200&h=800&fit=crop",
+    title: "Gratis Pengiriman",
+    subtitle: "Pesan sekarang, kami antar langsung ke rumah Anda",
+  },
+];
 
 const staggerContainer = {
   animate: { transition: { staggerChildren: 0.1 } },
@@ -22,22 +39,23 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [liveFilter, setLiveFilter] = useState("Semua");
   const [cookedFilter, setCookedFilter] = useState("Semua");
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const fetchAll = async () => {
+  // Auto-slide hero
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const fetchAll = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const [goatsRes, packagesRes] = await Promise.all([
-        supabase
-          .from("live_goats")
-          .select("*")
-          .eq("is_active", true)
-          .order("type"),
-        supabase
-          .from("cooked_packages")
-          .select("*")
-          .eq("is_active", true)
-          .order("type"),
+        supabase.from("live_goats").select("*").eq("is_active", true).order("type"),
+        supabase.from("cooked_packages").select("*").eq("is_active", true).order("type"),
       ]);
       if (goatsRes.error) throw goatsRes.error;
       if (packagesRes.error) throw packagesRes.error;
@@ -48,21 +66,16 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchAll();
-  }, []);
+  }, [fetchAll]);
 
   const filteredLiveGoats =
-    liveFilter === "Semua"
-      ? liveGoats
-      : liveGoats.filter((g) => g.type === liveFilter);
-
+    liveFilter === "Semua" ? liveGoats : liveGoats.filter((g) => g.type === liveFilter);
   const filteredCookedPackages =
-    cookedFilter === "Semua"
-      ? cookedPackages
-      : cookedPackages.filter((p) => p.type === cookedFilter);
+    cookedFilter === "Semua" ? cookedPackages : cookedPackages.filter((p) => p.type === cookedFilter);
 
   const SkeletonCard = () => (
     <div className="rounded-xl border border-primary-100/50 overflow-hidden">
@@ -77,19 +90,18 @@ export default function Home() {
   );
 
   const TypeFilter = ({ value, onChange }) => (
-    <div className="flex flex-wrap items-center gap-2 mb-6">
-      <Filter size={16} className="text-gray-500" />
+    <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
       {TYPES.map((type) => (
         <button
           key={type}
           onClick={() => onChange(type)}
-          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
             value === type
               ? "bg-primary text-white shadow-md"
-              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              : "bg-white text-gray-600 border border-gray-200 hover:border-primary hover:text-primary"
           }`}
         >
-          {type === "Semua" ? "Semua" : `Tipe ${type}`}
+          {type === "Semua" ? "Semua Tipe" : `Tipe ${type}`}
         </button>
       ))}
     </div>
@@ -97,102 +109,91 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-700 to-primary-500">
-        <div className="absolute top-20 right-20 w-72 h-72 bg-secondary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl" />
-        <div className="absolute inset-0 opacity-5">
-          <svg width="100%" height="100%">
-            <pattern
-              id="pattern"
-              x="0"
-              y="0"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
-            >
-              <circle cx="20" cy="20" r="1.5" fill="white" />
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#pattern)" />
-          </svg>
-        </div>
-
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      {/* Hero Section with Auto-Sliding Images */}
+      <section className="relative h-[85vh] sm:h-[90vh] overflow-hidden">
+        {/* Slides */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
           >
-            <Badge className="bg-secondary/20 text-secondary border-secondary/30 mb-6 text-sm px-4 py-1">
-              Idul Adha 2025
-            </Badge>
+            <img
+              src={heroSlides[currentSlide].image}
+              alt={heroSlides[currentSlide].title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
           </motion.div>
+        </AnimatePresence>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6"
-          >
-            Kambing Kurban Premium
-          </motion.h1>
+        {/* Content overlay */}
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <div className="text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4 drop-shadow-lg">
+                  {heroSlides[currentSlide].title}
+                </h1>
+                <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow">
+                  {heroSlides[currentSlide].subtitle}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-primary-100 mb-8 max-w-2xl mx-auto leading-relaxed"
-          >
-            Pilihan terbaik untuk ibadah kurban Anda. Kualitas premium dengan
-            harga terjangkau.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
             <a href="#katalog">
               <Button
                 size="lg"
-                className="bg-secondary hover:bg-secondary-500 text-text-primary font-semibold text-lg px-8 py-6 rounded-xl shadow-lg shadow-secondary/30 hover:shadow-xl hover:shadow-secondary/50 transition-all active:scale-95"
+                className="bg-secondary hover:bg-secondary-500 text-text-primary font-semibold text-lg px-8 py-6 rounded-xl shadow-lg shadow-secondary/30 hover:shadow-xl transition-all active:scale-95"
               >
                 Lihat Katalog
                 <ArrowDown size={20} className="ml-2" />
               </Button>
             </a>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-12 flex flex-wrap justify-center gap-4 sm:gap-8"
-          >
-            {[
-              { label: "500+ Terjual", icon: ShoppingBag },
-              { label: "100% Halal", icon: Beef },
-              { label: "Gratis Ongkir", icon: ChefHat },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm"
-              >
-                <stat.icon size={16} />
-                <span>{stat.label}</span>
-              </div>
-            ))}
-          </motion.div>
+            <div className="mt-10 flex flex-wrap justify-center gap-4 sm:gap-6">
+              {[
+                { label: "500+ Terjual", icon: ShoppingBag },
+                { label: "100% Halal", icon: Beef },
+                { label: "Gratis Ongkir", icon: ChefHat },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm"
+                >
+                  <stat.icon size={16} />
+                  <span>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Slide indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`h-2 rounded-full transition-all ${
+                i === currentSlide ? "w-8 bg-white" : "w-2 bg-white/50"
+              }`}
+            />
+          ))}
         </div>
       </section>
 
       {/* Wave divider */}
-      <svg
-        className="w-full -mt-1 text-background"
-        viewBox="0 0 1440 60"
-        fill="currentColor"
-        preserveAspectRatio="none"
-      >
+      <svg className="w-full -mt-1 text-background" viewBox="0 0 1440 60" fill="currentColor" preserveAspectRatio="none">
         <path d="M0,0 Q360,60 720,30 Q1080,0 1440,40 L1440,60 L0,60 Z" />
       </svg>
 
@@ -210,8 +211,7 @@ export default function Home() {
               Pilih Kambing Kurban Anda
             </h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
-              Tersedia berbagai pilihan kambing hidup dan paket masak siap saji
-              untuk kebutuhan kurban Anda.
+              Tersedia berbagai pilihan kambing hidup dan paket masak siap saji.
             </p>
           </motion.div>
 
@@ -235,97 +235,56 @@ export default function Home() {
 
             <TabsContent value="live">
               <TypeFilter value={liveFilter} onChange={setLiveFilter} />
-
               {loading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                  {[1, 2, 3].map((i) => (
-                    <SkeletonCard key={i} />
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[1, 2, 3].map((i) => <SkeletonCard key={i} />)}
                 </div>
               ) : error ? (
                 <div className="text-center py-12">
                   <p className="text-red-500 mb-4">{error}</p>
-                  <Button onClick={fetchAll} variant="outline">
-                    Coba Lagi
-                  </Button>
+                  <Button onClick={fetchAll} variant="outline">Coba Lagi</Button>
                 </div>
               ) : filteredLiveGoats.length === 0 ? (
                 <div className="text-center py-16">
                   <Beef size={48} className="mx-auto text-primary-200 mb-4" />
                   <p className="text-text-secondary text-lg">
-                    {liveFilter !== "Semua"
-                      ? `Tidak ada kambing Tipe ${liveFilter}`
-                      : "Belum ada kambing tersedia saat ini"}
+                    {liveFilter !== "Semua" ? `Tidak ada kambing Tipe ${liveFilter}` : "Belum ada kambing tersedia"}
                   </p>
                   {liveFilter !== "Semua" && (
-                    <button
-                      onClick={() => setLiveFilter("Semua")}
-                      className="mt-3 text-primary hover:underline text-sm"
-                    >
-                      Tampilkan semua
-                    </button>
+                    <button onClick={() => setLiveFilter("Semua")} className="mt-3 text-primary hover:underline text-sm">Tampilkan semua</button>
                   )}
                 </div>
               ) : (
-                <motion.div
-                  variants={staggerContainer}
-                  initial="initial"
-                  animate="animate"
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-                >
-                  {filteredLiveGoats.map((goat) => (
-                    <GoatCard key={goat.id} goat={goat} />
-                  ))}
+                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredLiveGoats.map((goat) => <GoatCard key={goat.id} goat={goat} />)}
                 </motion.div>
               )}
             </TabsContent>
 
             <TabsContent value="cooked">
               <TypeFilter value={cookedFilter} onChange={setCookedFilter} />
-
               {loading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                  {[1, 2, 3].map((i) => (
-                    <SkeletonCard key={i} />
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[1, 2, 3].map((i) => <SkeletonCard key={i} />)}
                 </div>
               ) : error ? (
                 <div className="text-center py-12">
                   <p className="text-red-500 mb-4">{error}</p>
-                  <Button onClick={fetchAll} variant="outline">
-                    Coba Lagi
-                  </Button>
+                  <Button onClick={fetchAll} variant="outline">Coba Lagi</Button>
                 </div>
               ) : filteredCookedPackages.length === 0 ? (
                 <div className="text-center py-16">
-                  <ChefHat
-                    size={48}
-                    className="mx-auto text-secondary-200 mb-4"
-                  />
+                  <ChefHat size={48} className="mx-auto text-secondary-200 mb-4" />
                   <p className="text-text-secondary text-lg">
-                    {cookedFilter !== "Semua"
-                      ? `Tidak ada paket masak Tipe ${cookedFilter}`
-                      : "Belum ada paket masak tersedia saat ini"}
+                    {cookedFilter !== "Semua" ? `Tidak ada paket Tipe ${cookedFilter}` : "Belum ada paket tersedia"}
                   </p>
                   {cookedFilter !== "Semua" && (
-                    <button
-                      onClick={() => setCookedFilter("Semua")}
-                      className="mt-3 text-primary hover:underline text-sm"
-                    >
-                      Tampilkan semua
-                    </button>
+                    <button onClick={() => setCookedFilter("Semua")} className="mt-3 text-primary hover:underline text-sm">Tampilkan semua</button>
                   )}
                 </div>
               ) : (
-                <motion.div
-                  variants={staggerContainer}
-                  initial="initial"
-                  animate="animate"
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-                >
-                  {filteredCookedPackages.map((pkg) => (
-                    <CookedCard key={pkg.id} pkg={pkg} />
-                  ))}
+                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredCookedPackages.map((pkg) => <CookedCard key={pkg.id} pkg={pkg} />)}
                 </motion.div>
               )}
             </TabsContent>
@@ -334,12 +293,7 @@ export default function Home() {
       </section>
 
       {/* Wave divider */}
-      <svg
-        className="w-full -mb-1 text-surface"
-        viewBox="0 0 1440 60"
-        fill="currentColor"
-        preserveAspectRatio="none"
-      >
+      <svg className="w-full -mb-1 text-surface" viewBox="0 0 1440 60" fill="currentColor" preserveAspectRatio="none">
         <path d="M0,40 Q360,0 720,30 Q1080,60 1440,20 L1440,60 L0,60 Z" />
       </svg>
 

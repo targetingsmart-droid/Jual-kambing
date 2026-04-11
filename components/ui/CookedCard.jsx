@@ -21,6 +21,9 @@ export default function CookedCard({ pkg }) {
             <img
               src={pkg.image_url}
               alt={`Paket Masak Tipe ${pkg.type}`}
+              loading="lazy"
+              width={400}
+              height={300}
               className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
             />
           ) : (

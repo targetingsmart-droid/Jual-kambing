@@ -18,6 +18,9 @@ export default function GoatCard({ goat }) {
             <img
               src={goat.image_url}
               alt={`Kambing Tipe ${goat.type}`}
+              loading="lazy"
+              width={400}
+              height={300}
               className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
             />
           ) : (

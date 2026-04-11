@@ -238,6 +238,7 @@ export default function LiveGoatForm({ initialData, onSuccess }) {
           <div className="border-2 border-dashed border-primary-200 rounded-xl p-6 text-center hover:border-primary transition-colors">
             {imagePreview ? (
               <div className="space-y-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={imagePreview}
                   alt="Preview"

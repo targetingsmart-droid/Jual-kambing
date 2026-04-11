@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { useToast } from "@/hooks/use-toast";
@@ -31,7 +31,7 @@ export default function CookedPackagesList() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-  const fetchPackages = async () => {
+  const fetchPackages = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("cooked_packages")
@@ -43,11 +43,11 @@ export default function CookedPackagesList() {
       setPackages(data || []);
     }
     setLoading(false);
-  };
+  }, [toast]);
 
   useEffect(() => {
     fetchPackages();
-  }, []);
+  }, [fetchPackages]);
 
   const handleDelete = async () => {
     if (!deleteTarget) return;
@@ -128,6 +128,7 @@ export default function CookedPackagesList() {
                   <TableRow key={pkg.id} className="hover:bg-primary-50/50">
                     <TableCell>
                       {pkg.image_url ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
                         <img
                           src={pkg.image_url}
                           alt={`Tipe ${pkg.type}`}

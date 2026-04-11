@@ -15,6 +15,7 @@ export default function GoatCard({ goat }) {
       <Card className="overflow-hidden rounded-xl border border-primary-100/50 hover:-translate-y-2 hover:shadow-card-hover transition-all duration-300">
         <div className="aspect-[4/3] relative overflow-hidden">
           {goat.image_url ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={goat.image_url}
               alt={`Kambing Tipe ${goat.type}`}

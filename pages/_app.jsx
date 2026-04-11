@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { Playfair_Display, Inter } from "next/font/google";
 import "@/styles/globals.css";
@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }) {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [isAdminRoute, isLoginPage, router]);
 
   useEffect(() => {
     if (authLoading) return;
@@ -59,7 +59,7 @@ export default function App({ Component, pageProps }) {
     if (isLoginPage && session) {
       router.replace("/admin");
     }
-  }, [session, authLoading, router.pathname]);
+  }, [session, authLoading, isAdminRoute, isLoginPage, router]);
 
   if (isAdminRoute && !isLoginPage && authLoading) {
     return (

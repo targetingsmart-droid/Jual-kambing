@@ -139,6 +139,41 @@ CREATE POLICY "Allow authenticated all" ON live_goats FOR ALL USING (auth.role()
 CREATE POLICY "Allow authenticated all" ON cooked_packages FOR ALL USING (auth.role() = 'authenticated');
 ```
 
+## Panduan Admin Panel
+
+### Login
+1. Buka `/admin/login` di browser
+2. Masukkan email dan password admin
+3. Klik "Masuk"
+
+### Menambah Kambing Hidup
+1. Dari dashboard, klik "Kelola Kambing Hidup"
+2. Klik tombol "Tambah Baru"
+3. Isi form:
+   - **Tipe**: Pilih A, B, C, D, atau E
+   - **Berat**: Masukkan rentang berat (contoh: "21-25 kg")
+   - **Harga**: Masukkan harga dalam Rupiah (contoh: 2500000)
+   - **Deskripsi**: Opsional, deskripsi singkat produk
+   - **Aktif**: Centang jika ingin ditampilkan di katalog
+   - **Gambar**: Klik area upload untuk memilih foto (JPG/PNG/WebP, maks 5MB)
+4. Klik "Tambah Kambing"
+
+### Menambah Paket Masak
+1. Dari dashboard, klik "Kelola Paket Masak"
+2. Klik tombol "Tambah Baru"
+3. Isi form sama seperti kambing hidup, ditambah:
+   - **Menu Masakan**: Tulis menu dipisahkan koma (contoh: "Rendang, Gulai, Sate")
+4. Klik "Tambah Paket"
+
+### Edit dan Hapus
+- Klik ikon pensil untuk mengedit produk
+- Klik ikon tempat sampah untuk menghapus (ada konfirmasi)
+
+### Tips
+- Produk dengan status "Nonaktif" tidak akan muncul di katalog publik
+- Gunakan gambar berkualitas tinggi (minimal 600x450 piksel)
+- Harga diisi tanpa titik atau koma (contoh: 2500000, bukan 2.500.000)
+
 ## Deploy ke Vercel
 
 1. Push ke GitHub

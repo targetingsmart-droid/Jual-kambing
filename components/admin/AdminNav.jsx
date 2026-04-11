@@ -56,10 +56,10 @@ export default function AdminNav() {
           </div>
 
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={handleLogout}
-            className="text-red-500 hover:text-red-600 hover:bg-red-50 shrink-0"
+            className="text-red-600 border-red-200 bg-red-50 hover:bg-red-100 hover:text-red-700 hover:border-red-300 shrink-0"
           >
             <LogOut size={16} className="mr-1.5" />
             Keluar

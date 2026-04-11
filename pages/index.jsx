@@ -186,17 +186,17 @@ export default function Home() {
           </motion.div>
 
           <Tabs defaultValue="live" className="w-full">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8 bg-primary-50 p-1 h-auto">
               <TabsTrigger
                 value="live"
-                className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+                className="flex items-center gap-2 py-3 text-primary font-semibold data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md rounded-md"
               >
                 <Beef size={16} />
                 Qurban Hidup
               </TabsTrigger>
               <TabsTrigger
                 value="cooked"
-                className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+                className="flex items-center gap-2 py-3 text-primary font-semibold data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md rounded-md"
               >
                 <ChefHat size={16} />
                 Qurban Masak

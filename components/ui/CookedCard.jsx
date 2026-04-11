@@ -18,6 +18,7 @@ export default function CookedCard({ pkg }) {
       <Card className="overflow-hidden rounded-xl border border-primary-100/50 hover:-translate-y-2 hover:shadow-card-hover transition-all duration-300">
         <div className="aspect-[4/3] relative overflow-hidden">
           {pkg.image_url ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={pkg.image_url}
               alt={`Paket Masak Tipe ${pkg.type}`}

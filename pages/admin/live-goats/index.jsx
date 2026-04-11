@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { useToast } from "@/hooks/use-toast";
@@ -31,7 +31,7 @@ export default function LiveGoatsList() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-  const fetchGoats = async () => {
+  const fetchGoats = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("live_goats")
@@ -43,11 +43,11 @@ export default function LiveGoatsList() {
       setGoats(data || []);
     }
     setLoading(false);
-  };
+  }, [toast]);
 
   useEffect(() => {
     fetchGoats();
-  }, []);
+  }, [fetchGoats]);
 
   const handleDelete = async () => {
     if (!deleteTarget) return;
@@ -127,6 +127,7 @@ export default function LiveGoatsList() {
                   <TableRow key={goat.id} className="hover:bg-primary-50/50">
                     <TableCell>
                       {goat.image_url ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
                         <img
                           src={goat.image_url}
                           alt={`Tipe ${goat.type}`}

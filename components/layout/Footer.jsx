@@ -1,4 +1,4 @@
-import { Phone, Clock, MapPin } from "lucide-react";
+import { Phone, Clock, MapPin, Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -23,33 +23,47 @@ export default function Footer() {
                 Penyedia kambing kurban premium dengan kualitas terbaik. Melayani
                 pemesanan untuk Idul Adha dan aqiqah.
               </p>
+              <a
+                href="https://instagram.com/goatshop.id"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-4 text-primary-200 hover:text-secondary transition-colors"
+              >
+                <Instagram size={18} />
+                <span>@goatshop.id</span>
+              </a>
             </div>
 
             <div>
               <h3 className="font-serif text-xl font-bold mb-4">Kontak</h3>
               <div className="space-y-3">
                 <a
-                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER_1}`}
+                  href="https://wa.me/6282220553417"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-primary-200 hover:text-secondary transition-colors"
                 >
                   <Phone size={16} />
-                  <span>WhatsApp 1</span>
+                  <span>+62 822-2055-3417</span>
                 </a>
                 <a
-                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER_2}`}
+                  href="https://instagram.com/goatshop.id"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-primary-200 hover:text-secondary transition-colors"
                 >
-                  <Phone size={16} />
-                  <span>WhatsApp 2</span>
+                  <Instagram size={16} />
+                  <span>Instagram</span>
                 </a>
-                <div className="flex items-center gap-2 text-primary-200">
+                <a
+                  href="https://maps.google.com/?q=-6.2088,106.8456"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-primary-200 hover:text-secondary transition-colors"
+                >
                   <MapPin size={16} />
                   <span>Jakarta, Indonesia</span>
-                </div>
+                </a>
               </div>
             </div>
 
@@ -65,6 +79,27 @@ export default function Footer() {
                   <span>Minggu: 09.00 - 15.00</span>
                 </div>
               </div>
+
+              {/* Clickable Map */}
+              <a
+                href="https://maps.google.com/?q=-6.2088,106.8456"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mt-4 rounded-lg overflow-hidden border border-primary-700 hover:border-secondary transition-colors"
+              >
+                <img
+                  src="https://maps.googleapis.com/maps/api/staticmap?center=-6.2088,106.8456&zoom=13&size=300x120&maptype=roadmap&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+                  alt="Lokasi GoatShop"
+                  className="w-full h-24 object-cover opacity-80 hover:opacity-100 transition-opacity"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
+                <div className="bg-primary-800 px-3 py-2 text-xs text-primary-300 flex items-center gap-1">
+                  <MapPin size={12} />
+                  Buka di Google Maps
+                </div>
+              </a>
             </div>
           </div>
 

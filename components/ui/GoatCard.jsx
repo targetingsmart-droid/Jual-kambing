@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Scale, Tag } from "lucide-react";
+import { Scale, Tag, Ruler } from "lucide-react";
 import { motion } from "framer-motion";
 import WhatsAppButton from "./WhatsAppButton";
 
@@ -42,16 +42,29 @@ export default function GoatCard({ goat }) {
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
           <Badge className="absolute top-2 left-2 bg-primary/90 backdrop-blur-sm text-white border-0">
-            Tipe {goat.type}
+            {goat.type}
           </Badge>
+          {goat.goat_number && (
+            <Badge className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white border-0 font-mono">
+              #{goat.goat_number}
+            </Badge>
+          )}
         </div>
         <CardContent className="p-4">
-          <h3 className="font-serif text-xl font-bold text-text-primary">
-            Kambing Tipe {goat.type} {goat.goat_number ? `(#${goat.goat_number})` : ""}
+          <h3 className="font-serif text-lg font-bold text-text-primary">
+            Kambing {goat.type} {goat.goat_number ? `#${goat.goat_number}` : ""}
           </h3>
-          <div className="flex items-center gap-2 mt-2 text-text-secondary">
-            <Scale size={16} />
-            <span>{goat.weight_range}</span>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-sm text-text-secondary">
+            <span className="flex items-center gap-1">
+              <Scale size={14} />
+              {goat.weight_range}
+            </span>
+            {goat.height && (
+              <span className="flex items-center gap-1">
+                <Ruler size={14} />
+                {goat.height}
+              </span>
+            )}
           </div>
           <div className="flex items-center gap-2 mt-1 mb-4">
             <Tag size={16} className="text-secondary" />

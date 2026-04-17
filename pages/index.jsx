@@ -75,7 +75,7 @@ export default function Home() {
   );
 
   const TypeFilter = ({ value, onChange }) => (
-    <div className="flex flex-wrap items-center gap-2 mb-6">
+    <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
       {TYPES.map((type) => (
         <button
           key={type}
@@ -136,7 +136,7 @@ export default function Home() {
             className="flex justify-center mb-6"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.jpg" alt="ABADI FARM Logo" className="h-48 sm:h-56 w-auto object-contain drop-shadow-2xl" />
+            <img src="/logo.jpg" alt="ABADI FARM Logo" className="h-32 w-32 sm:h-40 sm:w-40 rounded-full object-cover shadow-2xl border-4 border-white/30" />
           </motion.div>
           
           <motion.h1
@@ -222,26 +222,26 @@ export default function Home() {
             <TabsContent value="live">
               <TypeFilter value={liveFilter} onChange={setLiveFilter} />
               {loading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{[1, 2, 3].map((i) => <SkeletonCard key={i} />)}</div>
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{[1, 2, 3].map((i) => <SkeletonCard key={i} />)}</div>
               ) : error ? (
                 <div className="text-center py-12"><p className="text-red-500 mb-4">{error}</p><Button onClick={fetchAll} variant="outline">Coba Lagi</Button></div>
               ) : filteredLiveGoats.length === 0 ? (
                 <div className="text-center py-16"><Beef size={48} className="mx-auto text-primary-200 mb-4" /><p className="text-text-secondary text-lg">{liveFilter !== "Semua" ? `Tidak ada kambing Tipe ${liveFilter}` : "Belum ada kambing tersedia"}</p>{liveFilter !== "Semua" && <button onClick={() => setLiveFilter("Semua")} className="mt-3 text-primary hover:underline text-sm">Tampilkan semua</button>}</div>
               ) : (
-                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{filteredLiveGoats.map((goat) => <GoatCard key={goat.id} goat={goat} />)}</motion.div>
+                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{filteredLiveGoats.map((goat) => <GoatCard key={goat.id} goat={goat} />)}</motion.div>
               )}
             </TabsContent>
 
             <TabsContent value="cooked">
               <TypeFilter value={cookedFilter} onChange={setCookedFilter} />
               {loading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{[1, 2, 3].map((i) => <SkeletonCard key={i} />)}</div>
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{[1, 2, 3].map((i) => <SkeletonCard key={i} />)}</div>
               ) : error ? (
                 <div className="text-center py-12"><p className="text-red-500 mb-4">{error}</p><Button onClick={fetchAll} variant="outline">Coba Lagi</Button></div>
               ) : filteredCookedPackages.length === 0 ? (
                 <div className="text-center py-16"><ChefHat size={48} className="mx-auto text-secondary-200 mb-4" /><p className="text-text-secondary text-lg">{cookedFilter !== "Semua" ? `Tidak ada paket Tipe ${cookedFilter}` : "Belum ada paket tersedia"}</p>{cookedFilter !== "Semua" && <button onClick={() => setCookedFilter("Semua")} className="mt-3 text-primary hover:underline text-sm">Tampilkan semua</button>}</div>
               ) : (
-                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{filteredCookedPackages.map((pkg) => <CookedCard key={pkg.id} pkg={pkg} />)}</motion.div>
+                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">{filteredCookedPackages.map((pkg) => <CookedCard key={pkg.id} pkg={pkg} />)}</motion.div>
               )}
             </TabsContent>
           </Tabs>

@@ -115,8 +115,10 @@ export default function LiveGoatsList() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-16">Gambar</TableHead>
+                  <TableHead>No.</TableHead>
                   <TableHead>Tipe</TableHead>
                   <TableHead>Berat</TableHead>
+                  <TableHead>Tinggi</TableHead>
                   <TableHead>Harga</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Aksi</TableHead>
@@ -139,10 +141,14 @@ export default function LiveGoatsList() {
                         </div>
                       )}
                     </TableCell>
+                    <TableCell className="font-mono text-sm">
+                      {goat.goat_number ? `#${goat.goat_number}` : "-"}
+                    </TableCell>
                     <TableCell className="font-medium">
-                      Tipe {goat.type}
+                      {goat.type}
                     </TableCell>
                     <TableCell>{goat.weight_range}</TableCell>
+                    <TableCell>{goat.height || "-"}</TableCell>
                     <TableCell>{formatPrice(goat.price)}</TableCell>
                     <TableCell>
                       <Badge

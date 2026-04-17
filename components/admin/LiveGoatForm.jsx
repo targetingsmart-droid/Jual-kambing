@@ -31,7 +31,9 @@ const liveGoatSchema = z.object({
   type: z.enum(["Bronze", "Silver", "Gold", "Platinum", "Diamond"], {
     required_error: "Pilih tipe kambing",
   }),
+  goat_number: z.string().optional().default(""),
   weight_range: z.string().min(1, "Berat harus diisi"),
+  height: z.string().optional().default(""),
   price: z.coerce.number().positive("Harga harus lebih dari 0"),
   description: z.string().optional().default(""),
   is_active: z.boolean().default(true),
@@ -48,7 +50,9 @@ export default function LiveGoatForm({ initialData, onSuccess }) {
     resolver: zodResolver(liveGoatSchema),
     defaultValues: {
       type: initialData?.type || "",
+      goat_number: initialData?.goat_number || "",
       weight_range: initialData?.weight_range || "",
+      height: initialData?.height || "",
       price: initialData?.price || "",
       description: initialData?.description || "",
       is_active: initialData?.is_active ?? true,
@@ -167,12 +171,40 @@ export default function LiveGoatForm({ initialData, onSuccess }) {
 
           <FormField
             control={form.control}
+            name="goat_number"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nomor Domba</FormLabel>
+                <FormControl>
+                  <Input placeholder="Contoh: 23" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
             name="weight_range"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Berat</FormLabel>
                 <FormControl>
-                  <Input placeholder="21-25 kg" {...field} />
+                  <Input placeholder="24kg" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="height"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tinggi (cm)</FormLabel>
+                <FormControl>
+                  <Input placeholder="88cm" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

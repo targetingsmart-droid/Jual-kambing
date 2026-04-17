@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ShoppingBag } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Beranda" },
@@ -44,7 +43,8 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2 group">
-              <ShoppingBag className="h-7 w-7 text-primary group-hover:scale-110 transition-transform" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.jpg" alt="ABADI FARM" className="h-10 w-10 rounded-full object-cover border-2 border-primary/20 group-hover:scale-110 transition-transform" />
               <span className="font-serif text-xl sm:text-2xl font-bold text-primary">
                 ABADI FARM
               </span>
@@ -85,13 +85,13 @@ export default function Header() {
           />
 
           {/* Side panel */}
-          <div className="absolute top-0 right-0 h-full w-56 bg-white shadow-2xl flex flex-col">
-            {/* Close button */}
+          <div className="absolute top-0 right-0 h-full w-64 bg-white shadow-2xl flex flex-col">
+            {/* Header with logo */}
             <div className="flex items-center justify-between p-4 border-b">
-              <div className="flex flex-col items-start gap-1">
+              <div className="flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo.jpg" alt="ABADI FARM" className="h-16 w-auto object-contain drop-shadow-md mb-2" />
-                <span className="font-serif text-lg font-bold text-primary">
+                <img src="/logo.jpg" alt="ABADI FARM" className="h-10 w-10 rounded-full object-cover border-2 border-primary/20" />
+                <span className="font-serif text-base font-bold text-primary">
                   ABADI FARM
                 </span>
               </div>

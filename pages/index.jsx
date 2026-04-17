@@ -8,7 +8,6 @@ import CookedCard from "@/components/ui/CookedCard";
 import FeaturesSection from "@/components/ui/FeaturesSection";
 import { Beef, ChefHat, ArrowDown, ShoppingBag } from "lucide-react";
 
-import { staticLiveGoats } from "@/lib/staticGoats";
 
 const TYPES = ["Bronze", "Silver", "Gold", "Platinum", "Diamond"];
 
@@ -48,7 +47,7 @@ export default function Home() {
       ]);
       if (goatsRes.error) throw goatsRes.error;
       if (packagesRes.error) throw packagesRes.error;
-      setLiveGoats([...staticLiveGoats, ...(goatsRes.data || [])]);
+      setLiveGoats(goatsRes.data || []);
       setCookedPackages(packagesRes.data || []);
     } catch (err) {
       setError("Gagal memuat data. Silakan coba lagi.");

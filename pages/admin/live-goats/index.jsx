@@ -36,7 +36,7 @@ export default function LiveGoatsList() {
     const { data, error } = await supabase
       .from("live_goats")
       .select("*")
-      .order("type");
+      .order("goat_number");
     if (error) {
       toast({ title: "Gagal memuat data: " + error.message, variant: "destructive" });
     } else {

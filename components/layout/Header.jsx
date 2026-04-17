@@ -44,7 +44,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.jpg" alt="ABADI FARM" className="h-10 w-10 rounded-full object-cover border-2 border-primary/20 group-hover:scale-110 transition-transform" />
+              <img src="/logo.jpg" alt="ABADI FARM" className="h-10 w-10 rounded-full object-contain bg-black border-2 border-primary/20 group-hover:scale-110 transition-transform" />
               <span className="font-serif text-xl sm:text-2xl font-bold text-primary">
                 ABADI FARM
               </span>
@@ -90,7 +90,7 @@ export default function Header() {
             <div className="flex items-center justify-between p-4 border-b">
               <div className="flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo.jpg" alt="ABADI FARM" className="h-10 w-10 rounded-full object-cover border-2 border-primary/20" />
+                <img src="/logo.jpg" alt="ABADI FARM" className="h-10 w-10 rounded-full object-contain bg-black border-2 border-primary/20" />
                 <span className="font-serif text-base font-bold text-primary">
                   ABADI FARM
                 </span>

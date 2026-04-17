@@ -8,7 +8,6 @@ import CookedCard from "@/components/ui/CookedCard";
 import FeaturesSection from "@/components/ui/FeaturesSection";
 import { Beef, ChefHat, ArrowDown, ShoppingBag } from "lucide-react";
 
-
 const TYPES = ["Bronze", "Silver", "Gold", "Platinum", "Diamond"];
 
 const heroImages = [
@@ -135,7 +134,7 @@ export default function Home() {
             className="flex justify-center mb-6"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.jpg" alt="ABADI FARM Logo" className="h-32 w-32 sm:h-40 sm:w-40 rounded-full object-cover shadow-2xl border-4 border-white/30" />
+            <img src="/logo.jpg" alt="ABADI FARM Logo" className="h-36 w-36 sm:h-44 sm:w-44 rounded-full object-contain bg-black shadow-2xl border-4 border-white/30" />
           </motion.div>
           
           <motion.h1

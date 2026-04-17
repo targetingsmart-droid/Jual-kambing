@@ -90,7 +90,7 @@ export default function Header() {
             <div className="flex items-center justify-between p-4 border-b">
               <div className="flex flex-col items-start gap-1">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo.jpg" alt="ABADI FARM" className="h-12 w-12 object-cover rounded-full" />
+                <img src="/logo.jpg" alt="ABADI FARM" className="h-16 w-auto object-contain drop-shadow-md mb-2" />
                 <span className="font-serif text-lg font-bold text-primary">
                   ABADI FARM
                 </span>

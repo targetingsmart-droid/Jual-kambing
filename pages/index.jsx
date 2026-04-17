@@ -136,7 +136,7 @@ export default function Home() {
             className="flex justify-center mb-6"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.jpg" alt="ABADI FARM Logo" className="h-40 sm:h-48 w-40 sm:w-48 object-cover rounded-full shadow-2xl border-4 border-white/20" />
+            <img src="/logo.jpg" alt="ABADI FARM Logo" className="h-48 sm:h-56 w-auto object-contain drop-shadow-2xl" />
           </motion.div>
           
           <motion.h1

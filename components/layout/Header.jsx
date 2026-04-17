@@ -45,8 +45,8 @@ export default function Header() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2 group">
               <ShoppingBag className="h-7 w-7 text-primary group-hover:scale-110 transition-transform" />
-              <span className="font-serif text-2xl font-bold text-primary">
-                GoatShop
+              <span className="font-serif text-xl sm:text-2xl font-bold text-primary">
+                ABADI FARM
               </span>
             </Link>
 
@@ -88,9 +88,13 @@ export default function Header() {
           <div className="absolute top-0 right-0 h-full w-56 bg-white shadow-2xl flex flex-col">
             {/* Close button */}
             <div className="flex items-center justify-between p-4 border-b">
-              <span className="font-serif text-lg font-bold text-primary">
-                Menu
-              </span>
+              <div className="flex flex-col items-start gap-1">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo.jpg" alt="ABADI FARM" className="h-12 w-12 object-cover rounded-full" />
+                <span className="font-serif text-lg font-bold text-primary">
+                  ABADI FARM
+                </span>
+              </div>
               <button
                 className="p-2 rounded-lg border border-gray-300 text-gray-700"
                 onClick={() => setMobileOpen(false)}
@@ -117,7 +121,7 @@ export default function Header() {
             {/* Footer */}
             <div className="p-4 border-t bg-gray-50">
               <p className="text-xs text-gray-500 text-center">
-                GoatShop - Kambing Kurban Premium
+                ABADI FARM - Kambing Kurban Premium
               </p>
             </div>
           </div>

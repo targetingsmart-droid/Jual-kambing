@@ -66,7 +66,7 @@ export default function AdminLogin() {
             Masuk ke Dashboard
           </CardTitle>
           <p className="text-sm text-text-secondary mt-1">
-            GoatShop Admin Panel
+            ABADI FARM Admin Panel
           </p>
         </CardHeader>
         <CardContent>

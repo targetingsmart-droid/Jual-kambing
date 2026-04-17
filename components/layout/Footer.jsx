@@ -8,6 +8,25 @@ const InstagramIcon = ({ size = 16 }) => (
   </svg>
 );
 
+const FacebookIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const TiktokIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
+const MapPinIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
 export default function Footer() {
   return (
     <footer id="kontak" className="relative">
@@ -26,7 +45,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <h3 className="font-serif text-xl font-bold mb-4">GoatShop</h3>
+              <h3 className="font-serif text-xl font-bold mb-4">ABADI FARM</h3>
               <p className="text-primary-200 text-sm leading-relaxed">
                 Penyedia kambing kurban premium dengan kualitas terbaik. Melayani
                 pemesanan untuk Idul Adha dan aqiqah.
@@ -55,6 +74,34 @@ export default function Footer() {
                   <span>@goatshop.id</span>
                 </a>
 
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-primary-200 hover:text-secondary transition-colors"
+                >
+                  <FacebookIcon size={16} />
+                  <span>Facebook</span>
+                </a>
+                <a
+                  href="https://tiktok.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-primary-200 hover:text-secondary transition-colors"
+                >
+                  <TiktokIcon size={16} />
+                  <span>TikTok</span>
+                </a>
+                <a
+                  href="https://maps.app.goo.gl/MAWeWqroUU73nsPm8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-primary-200 hover:text-secondary transition-colors mt-4"
+                >
+                  <MapPinIcon size={16} className="mt-1 flex-shrink-0" />
+                  <span className="text-sm leading-tight">Lokasi Kami<br/><span className="text-xs opacity-75">Lihat di Google Maps</span></span>
+                </a>
+
               </div>
             </div>
 
@@ -74,7 +121,7 @@ export default function Footer() {
           </div>
 
           <div className="border-t border-primary-700 mt-8 pt-6 text-center text-primary-300 text-sm">
-            &copy; {new Date().getFullYear()} GoatShop. Semua hak dilindungi.
+            &copy; {new Date().getFullYear()} ABADI FARM. Semua hak dilindungi.
           </div>
         </div>
       </div>

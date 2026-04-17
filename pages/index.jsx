@@ -8,7 +8,9 @@ import CookedCard from "@/components/ui/CookedCard";
 import FeaturesSection from "@/components/ui/FeaturesSection";
 import { Beef, ChefHat, ArrowDown, ShoppingBag } from "lucide-react";
 
-const TYPES = ["Semua", "A", "B", "C"];
+import { staticLiveGoats } from "@/lib/staticGoats";
+
+const TYPES = ["Bronze", "Silver", "Gold", "Platinum", "Diamond"];
 
 const heroImages = [
   "https://images.unsplash.com/photo-1524024973431-2ad916746264?w=1200&h=500&fit=crop",
@@ -46,7 +48,7 @@ export default function Home() {
       ]);
       if (goatsRes.error) throw goatsRes.error;
       if (packagesRes.error) throw packagesRes.error;
-      setLiveGoats(goatsRes.data || []);
+      setLiveGoats([...staticLiveGoats, ...(goatsRes.data || [])]);
       setCookedPackages(packagesRes.data || []);
     } catch (err) {
       setError("Gagal memuat data. Silakan coba lagi.");
@@ -77,14 +79,14 @@ export default function Home() {
       {TYPES.map((type) => (
         <button
           key={type}
-          onClick={() => onChange(type)}
+          onClick={() => onChange(value === type ? "Semua" : type)}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${
             value === type
               ? "bg-primary text-white shadow-md"
               : "bg-white text-gray-600 border border-gray-200 hover:border-primary hover:text-primary"
           }`}
         >
-          {type === "Semua" ? "Semua Tipe" : `Tipe ${type}`}
+          {type}
         </button>
       ))}
     </div>
@@ -127,13 +129,23 @@ export default function Home() {
       {/* Hero Text Section - Green gradient background */}
       <section className="bg-gradient-to-br from-primary-900 via-primary-700 to-primary-500 py-12 sm:py-16">
         <div className="text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center mb-6"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.jpg" alt="ABADI FARM Logo" className="h-40 sm:h-48 w-40 sm:w-48 object-cover rounded-full shadow-2xl border-4 border-white/20" />
+          </motion.div>
+          
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4"
           >
-            Kambing Kurban Premium
+            ABADI FARM
           </motion.h1>
 
           <motion.p

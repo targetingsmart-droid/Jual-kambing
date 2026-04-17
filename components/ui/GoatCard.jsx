@@ -47,7 +47,7 @@ export default function GoatCard({ goat }) {
         </div>
         <CardContent className="p-4">
           <h3 className="font-serif text-xl font-bold text-text-primary">
-            Kambing Tipe {goat.type}
+            Kambing Tipe {goat.type} {goat.goat_number ? `(#${goat.goat_number})` : ""}
           </h3>
           <div className="flex items-center gap-2 mt-2 text-text-secondary">
             <Scale size={16} />
@@ -65,7 +65,7 @@ export default function GoatCard({ goat }) {
             </p>
           )}
           <WhatsAppButton
-            message={`Halo, saya tertarik Kambing Hidup Tipe ${goat.type} (${goat.weight_range}) harga Rp ${goat.price?.toLocaleString("id-ID")}. Apakah masih tersedia?`}
+            message={`Halo, saya tertarik Kambing Hidup Tipe ${goat.type}${goat.goat_number ? ` (No. ${goat.goat_number})` : ""} (${goat.weight_range}) harga Rp ${goat.price?.toLocaleString("id-ID")}. Apakah masih tersedia?`}
           />
         </CardContent>
       </Card>

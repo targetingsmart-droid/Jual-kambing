@@ -30,7 +30,7 @@ export default function AdminNav() {
               href="/"
               className="font-serif text-lg font-bold text-primary mr-4 shrink-0"
             >
-              GoatShop Admin
+              ABADI FARM Admin
             </Link>
 
             {links.map((link) => {

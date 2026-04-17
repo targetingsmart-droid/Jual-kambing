@@ -22,7 +22,7 @@ export default function Layout({ children }) {
     return (
       <>
         <Head>
-          <title>Login - GoatShop Admin</title>
+          <title>Login - ABADI FARM Admin</title>
           <meta name="robots" content="noindex, nofollow" />
         </Head>
         {children}
@@ -33,12 +33,12 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>GoatShop - Kambing Kurban Premium</title>
+        <title>ABADI FARM - Kambing Kurban Premium</title>
         <meta
           name="description"
-          content="GoatShop - Penyedia kambing kurban premium dengan kualitas terbaik. Melayani pemesanan untuk Idul Adha dan aqiqah."
+          content="ABADI FARM - Penyedia kambing kurban premium dengan kualitas terbaik. Melayani pemesanan untuk Idul Adha dan aqiqah."
         />
-        <meta property="og:title" content="GoatShop - Kambing Kurban Premium" />
+        <meta property="og:title" content="ABADI FARM - Kambing Kurban Premium" />
         <meta
           property="og:description"
           content="Pilihan kambing kurban terbaik dengan harga terjangkau. Gratis pengiriman, pemotongan, dan pemasakan."

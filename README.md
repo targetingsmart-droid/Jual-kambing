@@ -1,4 +1,4 @@
-# GoatShop - Kambing Kurban Premium
+# ABADI FARM - Kambing Kurban Premium
 
 Website penjualan kambing kurban dengan katalog online, pemesanan via WhatsApp, dan panel admin untuk manajemen produk.
 

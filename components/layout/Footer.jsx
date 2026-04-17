@@ -65,13 +65,13 @@ export default function Footer() {
                   <span>+62 822-2055-3417</span>
                 </a>
                 <a
-                  href="https://instagram.com/goatshop.id"
+                  href="https://instagram.com/abadifarm"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-primary-200 hover:text-secondary transition-colors"
                 >
                   <InstagramIcon size={16} />
-                  <span>@goatshop.id</span>
+                  <span>@abadifarm</span>
                 </a>
 
                 <a

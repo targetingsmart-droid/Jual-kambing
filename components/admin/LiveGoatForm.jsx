@@ -28,7 +28,7 @@ import {
 import { Upload, Loader2, ImageIcon } from "lucide-react";
 
 const liveGoatSchema = z.object({
-  type: z.enum(["A", "B", "C", "D", "E"], {
+  type: z.enum(["Bronze", "Silver", "Gold", "Platinum", "Diamond"], {
     required_error: "Pilih tipe kambing",
   }),
   weight_range: z.string().min(1, "Berat harus diisi"),
@@ -153,9 +153,9 @@ export default function LiveGoatForm({ initialData, onSuccess }) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {["A", "B", "C", "D", "E"].map((t) => (
+                    {["Bronze", "Silver", "Gold", "Platinum", "Diamond"].map((t) => (
                       <SelectItem key={t} value={t}>
-                        Tipe {t}
+                        {t}
                       </SelectItem>
                     ))}
                   </SelectContent>
